@@ -15,6 +15,15 @@ body {
   background-color: #3C315B;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.header-icon {
+  margin-right: 20px;
+}
+
 h1 {
   color: #AB9FF2;
   font-size: 24px;

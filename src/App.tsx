@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import "./styles.css";
 import { sanitizeJsonInput } from "./utils";
 import { ShortcutType } from "./types";
+import { IconPhantomLogo } from "./icons";
 
 type JsonType = "success" | "error" | "invalid";
 
@@ -53,7 +54,12 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1>Wallet Shortcuts JSON Validator</h1>
+      <div className="header">
+        <div className="header-icon">
+          <IconPhantomLogo width={72} />
+        </div>
+        <h1>Wallet Shortcuts JSON Validator</h1>
+      </div>
       <textarea
         rows={10}
         cols={50}
