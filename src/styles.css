@@ -1,17 +1,63 @@
 /* src/App.css */
 
+body {
+  background-color: #999999;
+}
+
 .App {
-  text-align: center;
+  font-family: Arial, sans-serif;
+  width: 60%;
+  margin: 40px auto;
+  border: 1px solid #474747;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #3C315B;
+}
+
+h1 {
+  color: #AB9FF2;
+  font-size: 24px;
 }
 
 textarea {
-  margin-top: 20px;
-  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #474747;
+  border-radius: 4px;
+  resize: vertical;
 }
 
 button {
-  margin-top: 20px;
-  padding: 5px 15px;
-  font-size: 16px;
+  background-color: #AB9FF2;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
+  margin-right: 10px;
+}
+
+button:hover {
+  background-color: #e2dffe;
+}
+
+.validation-message {
+  color: purple;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.validation-message.success {
+  color: #21E56F;
+}
+
+.validation-message.error {
+  color: #EB3742;
+}
+
+.validation-message.invalid {
+  color: orange;
 }

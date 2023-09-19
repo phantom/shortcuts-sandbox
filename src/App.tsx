@@ -3,9 +3,14 @@ import "./styles.css";
 import { sanitizeJsonInput } from "./utils";
 import { ShortcutType } from "./types";
 
+type JsonType = "success" | "error" | "invalid";
+
 export default function App() {
   const [jsonInput, setJsonInput] = useState<string>("");
-  const [validationMessage, setValidationMessage] = useState<string>("");
+  const [validationMessage, setValidationMessage] = useState<{
+    type: JsonType;
+    message: string;
+  }>({ type: "invalid", message: "" });
   const sanitizedJson = sanitizeJsonInput(jsonInput);
 
   const handleValidation = useCallback(() => {
@@ -13,13 +18,22 @@ export default function App() {
       const parsedJson = JSON.parse(sanitizedJson);
       const shortcut = ShortcutType.safeParse(parsedJson);
       if (shortcut.success) {
-        setValidationMessage("Valid JSON adhering to Shortcut schema");
+        setValidationMessage({
+          type: "success",
+          message: "SUCCESS: JSON adheres to Shortcut schema",
+        });
       } else {
-        setValidationMessage(`Invalid schema: ${shortcut.error.message}`);
+        setValidationMessage({
+          type: "error",
+          message: `ERROR: ${shortcut.error.message}`,
+        });
       }
     } catch (err) {
       console.error(err);
-      setValidationMessage("Invalid JSON, please try again");
+      setValidationMessage({
+        type: "invalid",
+        message: "INVALID JSON: Please fix your JSON and try again",
+      });
     }
   }, [jsonInput]);
 
@@ -30,7 +44,10 @@ export default function App() {
       setJsonInput(formatted);
     } catch (err) {
       console.error(err);
-      setValidationMessage("Invalid JSON, cannot format");
+      setValidationMessage({
+        type: "invalid",
+        message: "INVALID JSON: Cannot format",
+      });
     }
   }, [jsonInput]);
 
@@ -51,7 +68,9 @@ export default function App() {
         <button onClick={handleFormat}>Format</button>
       </div>
       <br />
-      <div style={{ color: "purple" }}>{validationMessage}</div>
+      <div className={`validation-message ${validationMessage.type}`}>
+        {validationMessage.message}
+      </div>
     </div>
   );
 }
