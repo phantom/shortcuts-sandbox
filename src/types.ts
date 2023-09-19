@@ -51,7 +51,7 @@ export const ShortcutType = z
       .union([z.literal("default"), z.literal("immerse")])
       .optional()
       .default("immerse"),
-    caip19: z
+    limitToCollections: z
       .string()
       .array()
       .optional()
