@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import "./styles.css";
 import { sanitizeJsonInput } from "./utils";
+import { ShortcutType } from "./types";
 
 export default function App() {
   const [jsonInput, setJsonInput] = useState<string>("");
@@ -10,7 +11,12 @@ export default function App() {
   const handleValidation = useCallback(() => {
     try {
       const parsedJson = JSON.parse(sanitizedJson);
-      setValidationMessage("Valid JSON");
+      const shortcut = ShortcutType.safeParse(parsedJson);
+      if (shortcut.success) {
+        setValidationMessage("Valid JSON adhering to Shortcut schema");
+      } else {
+        setValidationMessage(`Invalid schema: ${shortcut.error.message}`);
+      }
     } catch (err) {
       console.error(err);
       setValidationMessage("Invalid JSON, please try again");
