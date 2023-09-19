@@ -84,3 +84,18 @@ export type IconType = z.infer<typeof IconType>;
  * @property platform - The platform the shortcut is for. Use this to filter by "mobile", "desktop", or "all".
  */
 export type Shortcut = z.infer<typeof ShortcutType>;
+
+export const SchemaType = z
+  .object({
+    version: z.number(),
+    shortcuts: z.array(ShortcutType).optional().default([]),
+  })
+  .strict(); // No extra fields that are not supported
+
+/**
+ * A schema is a collection of shortcuts.
+ *
+ * @property version - The version of the schema.
+ * @property shortcuts - The shortcuts in the schema.
+ */
+export type Schema = z.infer<typeof SchemaType>;

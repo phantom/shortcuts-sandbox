@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import "./styles.css";
 import { sanitizeJsonInput } from "./utils";
-import { ShortcutType } from "./types";
+import { SchemaType } from "./types";
 import { IconPhantomLogo } from "./icons";
 
 type JsonType = "success" | "error" | "invalid";
@@ -17,7 +17,7 @@ export default function App() {
   const handleValidation = useCallback(() => {
     try {
       const parsedJson = JSON.parse(sanitizedJson);
-      const shortcut = ShortcutType.safeParse(parsedJson);
+      const shortcut = SchemaType.safeParse(parsedJson);
       if (shortcut.success) {
         setValidationMessage({
           type: "success",
@@ -52,6 +52,11 @@ export default function App() {
     }
   }, [jsonInput]);
 
+  const handleClear = useCallback(() => {
+    setJsonInput("");
+    setValidationMessage({ type: "invalid", message: "" });
+  }, []);
+
   return (
     <div className="App">
       <div className="header">
@@ -61,7 +66,7 @@ export default function App() {
         <h1>Wallet Shortcuts JSON Validator</h1>
       </div>
       <textarea
-        rows={10}
+        rows={16}
         cols={50}
         value={jsonInput}
         onChange={(e) => {
@@ -72,6 +77,7 @@ export default function App() {
       <div>
         <button onClick={handleValidation}>Validate</button>
         <button onClick={handleFormat}>Format</button>
+        <button onClick={handleClear}>Clear</button>
       </div>
       <br />
       <div className={`validation-message ${validationMessage.type}`}>
